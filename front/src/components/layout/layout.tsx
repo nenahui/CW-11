@@ -7,7 +7,7 @@ export const Layout: React.FC<PropsWithChildren> = ({ children }) => {
     <div className={'container mx-auto'}>
       <Toaster />
       <Header />
-      <div className={'flex justify-between'}>{children}</div>
+      <div className={'flex justify-between px-4'}>{children}</div>
     </div>
   );
 };

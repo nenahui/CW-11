@@ -5,7 +5,11 @@ import { Input } from '@/components/ui/input.tsx';
 import { Label } from '@/components/ui/label.tsx';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Textarea } from '@/components/ui/textarea.tsx';
-import { selectProductsCategories, selectProductsCategoriesFetching } from '@/features/Product/productSlice.ts';
+import {
+  selectProductCreating,
+  selectProductsCategories,
+  selectProductsCategoriesFetching,
+} from '@/features/Product/productSlice.ts';
 import { fetchCategories } from '@/features/Product/productThunks.ts';
 import type { ProductMutation } from '@/types.ts';
 import React, { useEffect, useState } from 'react';
@@ -28,6 +32,7 @@ export const NewProductForm: React.FC<Props> = ({
 }) => {
   const dispatch = useAppDispatch();
   const categories = useAppSelector(selectProductsCategories);
+  const loading = useAppSelector(selectProductCreating);
   const categoriesFetching = useAppSelector(selectProductsCategoriesFetching);
   const [errors, setErrors] = useState<{ [key: string]: boolean }>({});
 
@@ -128,7 +133,9 @@ export const NewProductForm: React.FC<Props> = ({
           </Select>
         </div>
 
-        <Button type={'submit'}>Create</Button>
+        <Button type={'submit'} disabled={loading}>
+          Create {loading && <Loader className={'size-4 ml-2 text-muted-foreground'} />}
+        </Button>
       </div>
     </form>
   );

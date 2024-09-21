@@ -12,7 +12,7 @@ const ProductSchema = new Schema({
 
     validate: {
       validator: async function (value: Types.ObjectId) {
-        const category = Category.findById(value);
+        const category = await Category.findById(value);
         return Boolean(category);
       },
       message: 'Category does not exist',
@@ -46,6 +46,13 @@ const ProductSchema = new Schema({
   price: {
     type: Number,
     required: true,
+
+    validate: {
+      validator: function (value: number) {
+        return value > 0;
+      },
+      message: 'Price must be greater than 0',
+    },
   },
 });
 

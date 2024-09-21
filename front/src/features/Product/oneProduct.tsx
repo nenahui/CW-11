@@ -2,7 +2,7 @@ import { useAppDispatch, useAppSelector } from '@/app/hooks.ts';
 import { Loader } from '@/components/loader/loader.tsx';
 import { Button } from '@/components/ui/button.tsx';
 import { API_URL } from '@/consts.ts';
-import { selectOneProduct, selectOneProductFetching } from '@/features/Product/productSlice.ts';
+import { selectOneProduct, selectOneProductFetching, selectProductDeleting } from '@/features/Product/productSlice.ts';
 import { deleteProduct, fetchOneProduct } from '@/features/Product/productThunks.ts';
 import { selectUser } from '@/features/users/usersSlice.ts';
 import { MobileIcon, PersonIcon, TrashIcon } from '@radix-ui/react-icons';
@@ -13,6 +13,7 @@ export const OneProduct: React.FC = () => {
   const user = useAppSelector(selectUser);
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
+  const productDeleting = useAppSelector(selectProductDeleting);
   const { productId } = useParams() as { productId: string };
   const product = useAppSelector(selectOneProduct);
   const loading = useAppSelector(selectOneProductFetching);
@@ -36,11 +37,12 @@ export const OneProduct: React.FC = () => {
 
   return (
     <div className={'flex flex-col gap-4 w-full'}>
-      <div className={'flex gap-28 justify-center items-center'}>
+      <div className={'flex gap-28 h-[80vh] justify-center items-center'}>
         <div className={'flex flex-col w-1/2'}>
           {user && user._id === product.user._id && (
-            <Button onClick={handleDelete} className={'max-w-max mb-4'}>
-              Delete Item <TrashIcon className={'size-5 ml-1'} />
+            <Button disabled={productDeleting} onClick={handleDelete} className={'max-w-max mb-4'}>
+              Delete Item
+              {productDeleting ? <Loader className={'size-4 ml-2'} /> : <TrashIcon className={'size-5 ml-1'} />}
             </Button>
           )}
           <small className={'text-lg text-muted-foreground font-light'}>{product.category.title}</small>
