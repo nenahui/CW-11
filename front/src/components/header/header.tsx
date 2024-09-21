@@ -30,7 +30,7 @@ export const Header: React.FC = () => {
                   Login
                 </Button>
               </Link>
-              <Link to={'/login'}>
+              <Link to={'/register'}>
                 <Button size={'sm'} className={'flex gap-1'}>
                   Sign Up
                   <svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20' fill='currentColor' className='size-4'>
