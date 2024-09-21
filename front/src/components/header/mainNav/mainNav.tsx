@@ -1,7 +1,10 @@
+import { useAppSelector } from '@/app/hooks.ts';
+import { selectUser } from '@/features/users/usersSlice.ts';
 import { cn } from '@/lib/utils';
 import { Link, useLocation } from 'react-router-dom';
 
 export const MainNav = () => {
+  const user = useAppSelector(selectUser);
   const { pathname } = useLocation();
 
   return (
@@ -11,24 +14,28 @@ export const MainNav = () => {
         <span className='font-medium'>kana.kg</span>
       </Link>
       <nav className='flex items-center gap-4 text-sm'>
-        <Link
-          to='/'
-          className={cn(
-            'transition-colors hover:text-foreground/80',
-            pathname === '/' ? 'text-foreground' : 'text-foreground/60'
-          )}
-        >
-          Home
-        </Link>
-        <Link
-          to='/new-product'
-          className={cn(
-            'transition-colors hover:text-foreground/80',
-            pathname === '/new-product' ? 'text-foreground' : 'text-foreground/60'
-          )}
-        >
-          New Product
-        </Link>
+        {user && (
+          <>
+            <Link
+              to='/'
+              className={cn(
+                'transition-colors hover:text-foreground/80',
+                pathname === '/' ? 'text-foreground' : 'text-foreground/60'
+              )}
+            >
+              Home
+            </Link>
+            <Link
+              to='/new-product'
+              className={cn(
+                'transition-colors hover:text-foreground/80',
+                pathname === '/new-product' ? 'text-foreground' : 'text-foreground/60'
+              )}
+            >
+              New Product
+            </Link>
+          </>
+        )}
       </nav>
     </div>
   );

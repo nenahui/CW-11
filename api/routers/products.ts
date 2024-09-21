@@ -24,13 +24,41 @@ productsRouter.get('/', async (req, res, next) => {
 
 productsRouter.get('/:id', async (req, res, next) => {
   try {
-    const product = await Product.findById(req.params.id).populate('category', 'title').populate('user', 'username');
+    const product = await Product.findById(req.params.id)
+      .populate('category', 'title')
+      .populate('user', 'displayName phone');
 
     if (!product) {
       return res.status(404).send({ error: 'Product not found' });
     }
 
     return res.send(product);
+  } catch (error) {
+    return next(error);
+  }
+});
+
+productsRouter.delete('/:id', auth, async (req: RequestWithUser, res, next) => {
+  try {
+    const user = req.user;
+
+    if (!user) {
+      return res.status(401).send({ error: 'Unauthorized' });
+    }
+
+    const product = await Product.findById(req.params.id);
+
+    if (!product) {
+      return res.status(404).send({ error: 'Product not found' });
+    }
+
+    if (!product.user._id.equals(user._id)) {
+      return res.status(403).send({ error: 'Forbidden' });
+    }
+
+    await Product.deleteOne({ _id: product._id });
+
+    return res.status(204).send();
   } catch (error) {
     return next(error);
   }

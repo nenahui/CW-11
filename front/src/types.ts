@@ -37,6 +37,12 @@ export interface Category {
   title: 'iPhone' | 'MacBook' | 'Apple Watch';
 }
 
+export interface Salesman {
+  _id: string;
+  displayName: string;
+  phone: string;
+}
+
 export interface Product {
   _id: string;
   title: string;
@@ -44,7 +50,7 @@ export interface Product {
   price: number;
   image: string;
   category: Category;
-  user: User;
+  user: Salesman;
 }
 
 export interface ProductMutation {

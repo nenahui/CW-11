@@ -56,3 +56,18 @@ export const fetchOneProduct = createAsyncThunk<Product, string>('product/fetchO
     return product;
   }
 });
+
+export const deleteProduct = createAsyncThunk<void, string, { state: RootState }>(
+  'product/deleteProduct',
+  async (id, { getState }) => {
+    {
+      const token = getState().users.user?.token;
+
+      await axiosApi.delete(`/products/${id}`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+    }
+  }
+);

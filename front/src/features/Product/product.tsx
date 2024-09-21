@@ -27,7 +27,7 @@ export const Product: React.FC = () => {
   }
 
   return (
-    <div className={'flex justify-between gap-6 w-full'}>
+    <div className={'flex justify-between gap-6 w-full relative'}>
       <CategoriesMenu categories={categories} loading={categoriesFetching} />
       <div className={'pl-10 border-l w-full'}>
         <div className={'grid grid-cols-3 shrink-0 gap-4 rounded-xl'}>
