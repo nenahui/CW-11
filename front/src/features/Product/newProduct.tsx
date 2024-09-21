@@ -53,7 +53,7 @@ export const NewProduct: React.FC = () => {
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    await dispatch(createProduct(productMutation));
+    await dispatch(createProduct(productMutation)).unwrap();
     setProductMutation(initialState);
     navigate('/');
   };

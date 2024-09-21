@@ -9,6 +9,7 @@ import { selectProductsCategories, selectProductsCategoriesFetching } from '@/fe
 import { fetchCategories } from '@/features/Product/productThunks.ts';
 import type { ProductMutation } from '@/types.ts';
 import React, { useEffect, useState } from 'react';
+import { toast } from 'sonner';
 
 interface Props {
   productMutation: ProductMutation;
@@ -38,7 +39,10 @@ export const NewProductForm: React.FC<Props> = ({
     const newErrors: { [key: string]: boolean } = {};
     if (!productMutation.title) newErrors.title = true;
     if (!productMutation.description) newErrors.description = true;
-    if (!productMutation.price) newErrors.price = true;
+    if (!productMutation.price || productMutation.price.includes('-')) {
+      newErrors.price = true;
+      toast.error('Price must be a positive number');
+    }
     if (!productMutation.image) newErrors.image = true;
     if (!productMutation.category) newErrors.category = true;
     setErrors(newErrors);
