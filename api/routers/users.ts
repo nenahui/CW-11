@@ -1,6 +1,7 @@
 import express from 'express';
 import mongoose from 'mongoose';
 import { User } from '../model/User';
+import { imagesUpload } from '../multer';
 
 export const usersRouter = express.Router();
 
@@ -9,6 +10,8 @@ usersRouter.post('/', async (req, res, next) => {
     const user = new User({
       username: req.body.username,
       password: req.body.password,
+      displayName: req.body.displayName,
+      phone: req.body.phone,
     });
 
     user.generateToken();

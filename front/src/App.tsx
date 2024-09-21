@@ -1,5 +1,7 @@
 import { Layout } from '@/components/layout/layout.tsx';
-import { Home } from '@/features/home/home.tsx';
+import { NewProduct } from '@/features/Product/newProduct.tsx';
+import { OneProduct } from '@/features/Product/oneProduct.tsx';
+import { Product } from '@/features/Product/product.tsx';
 import { Login } from '@/features/users/login.tsx';
 import { Register } from '@/features/users/register.tsx';
 import React from 'react';
@@ -15,7 +17,10 @@ export const App: React.FC = () => {
         element={
           <Layout>
             <Routes>
-              <Route path={'/'} element={<Home />} />
+              <Route path={'/'} element={<Product />} />
+              <Route path={'/categories/:categoryId'} element={<Product />} />
+              <Route path={'/new-product'} element={<NewProduct />} />
+              <Route path={'/product/:productId'} element={<OneProduct />} />
             </Routes>
           </Layout>
         }

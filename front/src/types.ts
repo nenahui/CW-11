@@ -31,3 +31,26 @@ export interface ValidationError {
 export interface GlobalError {
   error: string;
 }
+
+export interface Category {
+  _id: string;
+  title: 'iPhone' | 'MacBook' | 'Apple Watch';
+}
+
+export interface Product {
+  _id: string;
+  title: string;
+  description: string;
+  price: number;
+  image: string;
+  category: Category;
+  user: User;
+}
+
+export interface ProductMutation {
+  title: string;
+  description: string;
+  price: string;
+  image: File | null;
+  category: string;
+}
