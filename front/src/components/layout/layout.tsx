@@ -5,7 +5,7 @@ export const Layout: React.FC<PropsWithChildren> = ({ children }) => {
   return (
     <div className={'container mx-auto'}>
       <Header />
-      {children}
+      <div className={'flex justify-between'}>{children}</div>
     </div>
   );
 };

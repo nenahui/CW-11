@@ -20,33 +20,6 @@ export const MainNav = () => {
         >
           Главная
         </Link>
-        <Link
-          to='/news'
-          className={cn(
-            'transition-colors hover:text-foreground/80',
-            pathname === '/news' ? 'text-foreground' : 'text-foreground/60'
-          )}
-        >
-          Новости
-        </Link>
-        <Link
-          to='/events'
-          className={cn(
-            'transition-colors hover:text-foreground/80',
-            pathname === '/events' ? 'text-foreground' : 'text-foreground/60'
-          )}
-        >
-          Мероприятия
-        </Link>
-        <Link
-          to='/pollution-map'
-          className={cn(
-            'transition-colors hover:text-foreground/80',
-            pathname === '/pollution-map' ? 'text-foreground' : 'text-foreground/60'
-          )}
-        >
-          Карта
-        </Link>
       </nav>
     </div>
   );

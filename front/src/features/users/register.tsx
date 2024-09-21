@@ -11,7 +11,16 @@ import { Link, useNavigate } from 'react-router-dom';
 const initialState: RegisterMutation = {
   username: '',
   password: '',
+  displayName: '',
+  phone: '',
 };
+
+interface InputErrors {
+  username: boolean;
+  password: boolean;
+  displayName: boolean;
+  phone: boolean;
+}
 
 export const Register: React.FC = () => {
   const dispatch = useAppDispatch();
@@ -19,9 +28,11 @@ export const Register: React.FC = () => {
   const error = useAppSelector(selectRegisterError);
   const navigate = useNavigate();
   const [registerMutation, setRegisterMutation] = useState<RegisterMutation>(initialState);
-  const [inputErrors, setInputErrors] = useState<{ username: boolean; password: boolean }>({
+  const [inputErrors, setInputErrors] = useState<InputErrors>({
     username: false,
     password: false,
+    displayName: false,
+    phone: false,
   });
 
   const getFieldError = (field: string) => {
@@ -41,13 +52,11 @@ export const Register: React.FC = () => {
       const errors = {
         username: !registerMutation.username,
         password: !registerMutation.password,
+        displayName: !registerMutation.displayName,
+        phone: !registerMutation.phone,
       };
 
       setInputErrors(errors);
-
-      if (errors.username || errors.password) {
-        return;
-      }
 
       await dispatch(register(registerMutation)).unwrap();
       navigate('/');
@@ -90,6 +99,27 @@ export const Register: React.FC = () => {
                 type={'password'}
                 autoComplete={'new-password'}
                 className={inputErrors.password ? 'ring-red-600 ring-1 focus-visible:ring-red-600' : ''}
+              />
+
+              <UsersInput
+                onChange={handleChange}
+                name={'displayName'}
+                label={'Display Name'}
+                error={getFieldError('displayName')}
+                value={registerMutation.displayName}
+                placeholder={'Enter your display name'}
+                className={inputErrors.displayName ? 'ring-red-600 ring-1 focus-visible:ring-red-600' : ''}
+              />
+
+              <UsersInput
+                type={'tel'}
+                onChange={handleChange}
+                name={'phone'}
+                label={'Phone Number'}
+                error={getFieldError('phone')}
+                value={registerMutation.phone}
+                placeholder={'Enter your phone number'}
+                className={inputErrors.phone ? 'ring-red-600 ring-1 focus-visible:ring-red-600' : ''}
               />
 
               <Button type={'submit'} disabled={loading} className={'select-none'}>
